@@ -26,7 +26,7 @@
 
   <groupId>org.mybatis.caches</groupId>
   <artifactId>mybatis-redis</artifactId>
-  <version>1.0.0-beta2</version>
+  <version>1.0.0-beta2.1</version>
   <packaging>jar</packaging>
 
   <name>mybatis-redis</name>
@@ -53,6 +53,17 @@
       <name>Mybatis GitHub Pages</name>
       <url>git:ssh://git@github.com/mybatis/redis-cache.git?gh-pages#</url>
     </site>
+    <repository>
+      <id>releases</id>
+      <name>Releases</name>
+      <url>http://171.16.46.6:8081/nexus/content/repositories/releases</url>
+    </repository>
+    <snapshotRepository>
+      <id>snapshots</id>
+      <name>Snapshots</name>
+      <url>http://171.16.46.6:8081/nexus/content/repositories/snapshots</url>
+    </snapshotRepository>
+
   </distributionManagement>
 
   <properties>
@@ -108,6 +119,32 @@
       <scope>test</scope>
     </dependency>
   </dependencies>
+
+  <repositories>
+
+    <repository>
+      <id>central</id>
+      <url>https://maven.aliyun.com/repository/central</url>
+      <releases>
+        <enabled>true</enabled>
+      </releases>
+      <snapshots>
+        <enabled>true</enabled>
+      </snapshots>
+    </repository>
+  </repositories>
+  <pluginRepositories>
+    <pluginRepository>
+      <id>central</id>
+      <url>https://maven.aliyun.com/repository/central</url>
+      <releases>
+        <enabled>true</enabled>
+      </releases>
+      <snapshots>
+        <enabled>true</enabled>
+      </snapshots>
+    </pluginRepository>
+  </pluginRepositories>
 
   <profiles>
     <profile>

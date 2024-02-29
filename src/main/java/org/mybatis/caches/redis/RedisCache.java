@@ -33,6 +33,7 @@ public final class RedisCache implements Cache {
   private final ReadWriteLock readWriteLock = new DummyReadWriteLock();
 
   private String id;
+  private Integer timeout;
 
   private static JedisPool pool;
 
@@ -77,7 +78,11 @@ public final class RedisCache implements Cache {
     execute(new RedisCallback() {
       @Override
       public Object doWithRedis(Jedis jedis) {
-        jedis.hset(id.toString().getBytes(), key.toString().getBytes(), SerializeUtil.serialize(value));
+        final byte[] idBytes = id.getBytes();
+        jedis.hset(idBytes, key.toString().getBytes(), SerializeUtil.serialize(value));
+        if (timeout != null && jedis.ttl(idBytes) == -1) {
+          jedis.expire(idBytes, timeout);
+        }
         return null;
       }
     });
@@ -125,4 +130,7 @@ public final class RedisCache implements Cache {
     return "Redis {" + id + "}";
   }
 
+  public void setTimeout(Integer timeout) {
+    this.timeout = timeout;
+  }
 }
